@@ -1,0 +1,44 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 80px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(20, 20, 29); 
+    font-family: 'Cabin', sans-serif;
+    padding-top: 20px;
+    overflow: none;
+    font-family: 'Cabin', sans-serif;
+    border-radius: 10px;
+  }
+
+
+/* //  padding: 6px 8px 6px 16px;*/
+  /* The navigation menu links */
+  .sidenav a {
+    margin-left:16px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #d6d2d2;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #fdfcfc;
+  }
+  
+  /* Style page content */
+
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+
+  

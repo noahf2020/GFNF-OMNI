@@ -1,0 +1,158 @@
+<html>
+
+<head>
+  <title>Harvester</title>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+<style>
+    .captchaWindow{
+        border-radius: 20px;
+	    background-color: rgb(20, 20, 29);
+	    height: 94vh;
+	 
+    }
+
+
+  * {
+    transition: all 0.2s;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  #label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    margin-top: 20px;
+    color: grey;
+    opacity: 1.0;
+   padding-top:15px;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    -webkit-app-region: drag;
+  }
+
+  #captcha-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 120px !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  #loading-gif {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: auto;
+    margin-top: 60px !important;
+    /* border: 1px red solid; */
+    height: 200px;
+    width: 200px;
+    border-radius: 90px;
+    -webkit-animation: rotation 6s infinite linear;
+    
+  }
+  @-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
+  button {
+    background: #677CBB;
+    border: 2.5px solid #4A85E8;
+    border-radius: 2px 2px 2px 2px;
+    font-family: "Arial";
+    color: #FFFFFF;
+    transition: all 0.1s;
+    padding-left: 4px;
+    padding-right: 4px;
+    width:200px;
+    height:35px;
+    margin-right:60px;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  button:focus {
+    background-color: #78A5E8;
+  }
+
+  #gmail-button {
+    float: right;
+  }
+</style>
+
+<body>
+    <div id="root">
+        <div class="captchaWindow">
+  <!-- https://loading.io/asset/462619 -->
+  <h3 id="label"> Waiting For Captcha</h3>
+  <img src="https://pbs.twimg.com/profile_images/1430365188902039555/3j-uRy2e_400x400.jpg" id="loading-gif"></img>
+  <div id="captcha-placeholder" data-callback="submitCaptcha"></div>
+  <div id="button-container">
+    <button type="button" id="gmail-button">Gmail</button>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron')
+    // get settings
+    let sitekey
+    ;(async () => {
+      const res = await ipcRenderer.invoke('getSettings')
+      sitekey = res.sitekey
+    })()
+
+    let captchasNeeded = 0
+
+    const googleLogin = function googleLogin() {
+      ipcRenderer.send('googleLogin')
+    }
+
+    const submitCaptcha = function submitCaptcha() {
+      console.log('sending captcha')
+      captchasNeeded -= 1
+      ipcRenderer.send('captcha', grecaptcha.getResponse())
+      if (captchasNeeded > 0) {
+        grecaptcha.reset()
+      } else {
+        window.location.reload()
+      }
+    }
+
+    const renderCaptcha = function renderCaptcha() {
+      document.querySelector('#loading-gif').style.display = 'none'
+      document.querySelector('#gmail-button').style.display = 'none'
+      grecaptcha.render(document.querySelector('#captcha-placeholder'), {
+        'sitekey': "6LeoeSkTAAAAAA9rkZs5oS82l69OEYjKRZAiKdaF",
+        'callback': submitCaptcha,
+        'theme': 'dark'
+      })
+    }
+
+    document.querySelector('#gmail-button').onclick = googleLogin
+
+    ipcRenderer.on('renderCaptcha', (event, data) => {
+      captchasNeeded += 1
+      console.log('[renderer] rendering captcha')
+      renderCaptcha()
+    })
+  </script>
+  </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+.MainBackGround{
+        overflow: scroll;
+        display:flex;
+        margin-top: 20px;
+        height: 500px;
+        width: 900px;
+        margin-left: 140px;
+        background: rgb(30, 29, 41);
+        border-radius: 5px;
+        flex-wrap:  wrap ;
+        font-family: 'Inter', sans-serif;
+      
+
+}
+
+
+
+.ProfileBTNDiv{
+display:flex;
+justify-content: end;
+margin-top:25px;
+margin-right:50px;
+}
+.ProfileImport:hover{
+    border: 1.5px solid rgb(188, 219, 50)
+
+}
+
+.ProfileAdd:hover{
+    border: 1.5px solid rgb(17, 209, 74)
+}
+.ProfileRemove:hover{
+    border: 1.5px solid rgb(226, 87, 62)
+
+}
+
+.ProfileAdd{
+background-color: rgb(38, 36, 53);
+color:white;
+border:none;
+outline: none;
+cursor: pointer;
+width:150px; 
+height:30px;
+margin-right:0px;
+border-radius: 4px;
+font-family: 'Inter', sans-serif;
+
+
+}
+.ProfileRemove{
+background-color: rgb(38, 36, 53);
+color:white;
+border:none;
+outline: none;
+cursor: pointer;
+width:196px; 
+height:30px;
+margin-right:10px;
+border-radius: 4px;
+font-family: 'Inter', sans-serif;
+
+}
+
+.ProfileImport{
+background-color: rgb(38, 36, 53);
+color:white;
+border:none;
+outline: none;
+cursor: pointer;
+width:120px; 
+height:30px;
+margin-right:40px;
+border-radius: 4px;
+font-family: 'Inter', sans-serif;
+
+}
+
+.NoProfilesLeft{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-left:400px;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.Search{
+    font-family: 'Inter', sans-serif;
+}
